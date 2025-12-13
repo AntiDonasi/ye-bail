@@ -1,5 +1,3 @@
-# ye-bail
-
 [![License](https://img.shields.io/badge/license-GPL%203-blue.svg)](LICENSE)
 
 ## Warning
@@ -120,7 +118,7 @@ const sock = makeWASocket({
 })
 
 if (!sock.authState.creds.registered) {
-    const number = '6285134816783'
+    const number = '6299999999999'
     const code = await sock.requestPairingCode(number)
     console.log('Pairing Code:', code)
 }

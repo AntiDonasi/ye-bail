@@ -14,7 +14,7 @@
   "files": [
     "lib/*",
     "WAProto/*",
-    "engine-requirements.js"
+    "requirements.js"
   ],
   "scripts": {
     "build:all": "tsc && typedoc",
@@ -29,7 +29,7 @@
     "lint:fix": "eslint src --fix --ext .js,.ts,.jsx,.tsx",
     "prepack": "echo 'ye-bail WhatsApp Library'",
     "prepare": "echo 'ye-bail WhatsApp Library'",
-    "preinstall": "node ./engine-requirements.js",
+    "preinstall": "node ./requirements.js",
     "release": "release-it",
     "test": "jest"
   },
