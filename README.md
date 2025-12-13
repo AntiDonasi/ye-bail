@@ -256,10 +256,127 @@ await sock.sendMessage(
                 })
             },
             {
+                name: 'cta_copy',
+                buttonParamsJson: JSON.stringify({
+                    display_text: 'Click Me!',
+                    copy_code: 'https://whatsapp.com/channel/0029Vag9VSI2ZjCocqa2lB1y'
+                })
+            },
+            {
                 name: 'cta_call',
                 buttonParamsJson: JSON.stringify({
                     display_text: 'Call Me!',
                     phone_number: '6299999999999'
+                })
+            },
+            {
+                name: 'cta_catalog',
+                buttonParamsJson: JSON.stringify({
+                    business_phone_number: '6299999999999'
+                })
+            },
+            {
+                name: 'cta_reminder',
+                buttonParamsJson: JSON.stringify({
+                    display_text: 'Set Reminder'
+                })
+            },
+            {
+                name: 'cta_cancel_reminder',
+                buttonParamsJson: JSON.stringify({
+                    display_text: 'Cancel Reminder'
+                })
+            },
+            {
+                name: 'address_message',
+                buttonParamsJson: JSON.stringify({
+                    display_text: 'Send Address'
+                })
+            },
+            {
+                name: 'send_location',
+                buttonParamsJson: JSON.stringify({
+                    display_text: 'Send Location'
+                })
+            },
+            {
+                name: 'open_webview',
+                buttonParamsJson: JSON.stringify({
+                    title: 'Follow Me!',
+                    link: {
+                        in_app_webview: true,
+                        url: 'https://whatsapp.com/channel/0029Vag9VSI2ZjCocqa2lB1y'
+                    }
+                })
+            },
+            {
+               name: 'mpm',
+               buttonParamsJson: JSON.stringify({
+                  product_id: '8816262248471474'
+               })
+            },
+            {
+               name: 'wa_payment_transaction_details',
+               buttonParamsJson: JSON.stringify({
+                  transaction_id: '12345848'
+               })
+            },
+            {
+               name: 'automated_greeting_message_view_catalog',
+               buttonParamsJson: JSON.stringify({
+                   business_phone_number: '6299999999999', 
+                   catalog_product_id: '12345'
+               })
+            },
+            {
+                name: 'galaxy_message', 
+                buttonParamsJson: JSON.stringify({
+                  mode: 'published', 
+                    flow_message_version: '3', 
+                    flow_token: '1:1307913409923914:293680f87029f5a13d1ec5e35e718af3',
+                    flow_id: '1307913409923914',
+                    flow_cta: 'I Love Plana >\\<', 
+                    flow_action: 'navigate', 
+                    flow_action_payload: {
+                      screen: 'QUESTION_ONE',
+                        params: {
+                          user_id: '123456789', 
+                            referral: 'campaign_xyz'
+                        }
+                    }, 
+                    flow_metadata: {
+                      flow_json_version: '201', 
+                        data_api_protocol: 'v2', 
+                        flow_name: 'Lead Qualification [en]',
+                        data_api_version: 'v2', 
+                        categories: ['Lead Generation', 'Sales']
+                   }
+                }) 
+            }, 
+            {
+                name: 'single_select',
+                buttonParamsJson: JSON.stringify({
+                    title: 'Click Me!',
+                    sections: [
+                        {
+                            title: 'Title 1',
+                            highlight_label: 'Highlight label 1',
+                            rows: [
+                                {
+                                    header: 'Header 1',
+                                    title: 'Title 1',
+                                    description: 'Description 1',
+                                    id: 'Id 1'
+                                },
+                                {
+                                    header: 'Header 2',
+                                    title: 'Title 2',
+                                    description: 'Description 2',
+                                    id: 'Id 2'
+                                }
+                            ]
+                        }
+                    ]
                 })
             }
         ]
@@ -267,7 +384,7 @@ await sock.sendMessage(
 )
 ```
 
-### Interactive Buttons with Media
+### Interactive Buttons with Image
 
 ```javascript
 await sock.sendMessage(
@@ -290,6 +407,128 @@ await sock.sendMessage(
            }
        ], 
        hasMediaAttachment: true
+    }
+)
+```
+
+### Interactive Buttons with Video
+
+```javascript
+await sock.sendMessage(
+    jid, 
+    {
+        video: { 
+          url: 'https://example.mp4' 
+       },
+       caption: 'Body',
+       title: 'Title', 
+       subtitle: 'Subtitle', 
+       footer: 'Footer',
+       interactiveButtons: [
+           {
+               name: 'quick_reply',
+               buttonParamsJson: JSON.stringify({
+                   display_text: 'DisplayText',
+                   id: 'ID1'
+               })
+           }
+       ], 
+       hasMediaAttachment: true
+    }
+)
+```
+
+### Interactive Buttons with Document
+
+```javascript
+await sock.sendMessage(
+    jid, 
+    {
+        document: { 
+          url: 'https://example.pdf' 
+       }, 
+       mimetype: 'application/pdf', 
+       caption: 'Body',
+       title: 'Title',
+       subtitle: 'Subtitle', 
+       footer: 'Footer',
+       interactiveButtons: [
+           {
+               name: 'quick_reply',
+               buttonParamsJson: JSON.stringify({
+                   display_text: 'DisplayText',
+                   id: 'ID1'
+               })
+           }
+       ], 
+       hasMediaAttachment: true
+    }
+)
+```
+
+### Interactive Buttons with Location
+
+```javascript
+await sock.sendMessage(
+    jid, 
+    {
+        location: { 
+          degreesLatitude: -0,
+          degreesLongitude: 0,
+          name: 'Hi'
+       },
+       caption: 'Body',
+       title: 'Title', 
+       subtitle: 'Subtitle', 
+       footer: 'Footer',
+       interactiveButtons: [
+           {
+               name: 'quick_reply',
+               buttonParamsJson: JSON.stringify({
+                   display_text: 'DisplayText',
+                   id: 'ID1'
+               })
+           }
+       ], 
+       hasMediaAttachment: true
+    }
+)
+```
+
+### Interactive Buttons with Product
+
+```javascript
+await sock.sendMessage(
+    jid,
+    {
+        product: {
+            productImage: { 
+               url: 'https://example.jpg'
+            },
+            productId: '836xxx',
+            title: 'Title',
+            description: 'Description',
+            currencyCode: 'IDR',
+            priceAmount1000: '283xxx',
+            retailerId: 'Retailer Name',
+            url: 'https://example.com',
+            productImageCount: 1
+        },
+        businessOwnerJid: '6299999999999@s.whatsapp.net',
+        caption: 'Body',
+        title: 'Title', 
+        subtitle: 'Subtitle', 
+        footer: 'Footer',
+        interactiveButtons: [
+            {
+                name: 'quick_reply',
+                buttonParamsJson: JSON.stringify({
+                    display_text: 'DisplayText',
+                    id: 'ID1'
+                })
+            }
+        ], 
+        hasMediaAttachment: true
     }
 )
 ```
