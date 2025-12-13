@@ -1,0 +1,257 @@
+# Ye-bail
+
+[![npm version](https://img.shields.io/npm/v/ye-bail.svg)](https://www.npmjs.com/package/ye-bail)
+[![License](https://img.shields.io/badge/license-GPL%203-blue.svg)](LICENSE)
+[![Downloads](https://img.shields.io/npm/dm/ye-bail.svg)](https://www.npmjs.com/package/ye-bail)
+
+## Main Features
+
+- **Modern & Fast** - Built with TypeScript and latest technologies
+- **@lid & @jid Fix** - Fixes @lid to @pn issues in WhatsApp groups
+- **Multi-Device Support** - Supports WhatsApp multi-device connections
+- **End-to-End Encryption** - Full encrypted communication
+- **All Message Types** - Supports text, media, polling, etc.
+
+## Warning
+
+This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with WhatsApp or any of its subsidiaries. The official WhatsApp website is at whatsapp.com.
+
+The maintainers of Ye-bail do not support the use of this application to violate WhatsApp's Terms of Service. We emphasize personal responsibility for users to use fairly and responsibly.
+
+Use wisely. Avoid spam. Do not use excessive automation.
+
+## Installation
+
+### Stable Version (Recommended)
+
+```bash
+npm i ye-bail
+```
+
+### Edge Version (Latest Features)
+
+```bash
+npm i ye-bail@latest
+# or
+yarn add ye-bail@latest
+```
+
+### Import in Code
+
+```javascript
+const { default: makeWASocket } = require("ye-bail")
+// or ES6
+import makeWASocket from "ye-bail"
+```
+
+## Quick Start
+
+### Basic Example
+
+```javascript
+const { default: makeWASocket, DisconnectReason, useMultiFileAuthState } = require('ye-bail')
+const { Boom } = require('@hapi/boom')
+
+async function connectToWhatsApp() {
+    const { state, saveCreds } = await useMultiFileAuthState('auth_info_ye_bail')
+    
+    const sock = makeWASocket({
+        auth: state,
+        printQRInTerminal: true,
+        browser: ['Ye-bail', 'Desktop', '3.0']
+    })
+
+    sock.ev.on('connection.update', (update) => {
+        const { connection, lastDisconnect } = update
+        if(connection === 'close') {
+            const shouldReconnect = (lastDisconnect?.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut
+            console.log('Connection closed due to ', lastDisconnect.error, ', reconnecting ', shouldReconnect)
+            if(shouldReconnect) {
+                connectToWhatsApp()
+            }
+        } else if(connection === 'open') {
+            console.log('Successfully connected to WhatsApp!')
+        }
+    })
+
+    sock.ev.on('messages.upsert', async ({ messages }) => {
+        for (const m of messages) {
+            if (!m.message) continue
+            
+            console.log('New message:', JSON.stringify(m, undefined, 2))
+            
+            await sock.sendMessage(m.key.remoteJid!, { 
+                text: 'Hello! I am a WhatsApp bot using Ye-bail' 
+            })
+        }
+    })
+
+    sock.ev.on('creds.update', saveCreds)
+}
+
+connectToWhatsApp()
+```
+
+## Table of Contents
+
+Disclaimer: This documentation is still in beta, so there may be errors or inconsistencies.
+
+## Account Connection
+
+WhatsApp provides a multi-device API that allows Ye-bail to authenticate as a secondary WhatsApp client via QR code or pairing code.
+
+### Connect with QR Code
+
+> [!TIP]  
+> Adjust browser name using the `Browsers` constant. See available configurations below.
+
+```javascript
+const { default: makeWASocket, Browsers } = require("ye-bail")
+
+const sock = makeWASocket({
+    browser: Browsers.ubuntu('My App'),
+    printQRInTerminal: true
+})
+```
+
+After successful connection, QR code will appear in terminal. Scan with WhatsApp on your phone to login.
+
+### Connect with Pairing Code
+
+> [!IMPORTANT]  
+> Pairing code is not part of Mobile API. This allows WhatsApp Web connection without QR code, but only one device. See [WhatsApp FAQ](https://faq.whatsapp.com/).
+
+Phone number must be without `+`, `()`, or `-`, and include country code.
+
+```javascript
+const { default: makeWASocket } = require("ye-bail")
+
+const sock = makeWASocket({
+    printQRInTerminal: false
+})
+
+if (!sock.authState.creds.registered) {
+    const number = '6285134816783'
+    const code = await sock.requestPairingCode(number)
+    console.log('Pairing Code:', code)
+}
+```
+
+### Receive Full History
+
+1. Set `syncFullHistory` to `true`.
+2. By default, Ye-bail uses Chrome configuration. For desktop-like connection (for more message history), use:
+
+```javascript
+const { default: makeWASocket, Browsers } = require("ye-bail")
+
+const sock = makeWASocket({
+    browser: Browsers.macOS('Desktop'),
+    syncFullHistory: true
+})
+```
+
+## Important Socket Configuration Notes
+
+### Group Metadata Caching (Recommended)
+
+For group usage, implement group metadata caching:
+
+```javascript
+const { default: makeWASocket } = require("ye-bail")
+const NodeCache = require('node-cache')
+
+const groupCache = new NodeCache({ stdTTL: 5 * 60, useClones: false })
+
+const sock = makeWASocket({
+    cachedGroupMetadata: async (jid) => groupCache.get(jid)
+})
+
+sock.ev.on('groups.update', async ([event]) => {
+    const metadata = await sock.groupMetadata(event.id)
+    groupCache.set(event.id, metadata)
+})
+
+sock.ev.on('group-participants.update', async (event) => {
+    const metadata = await sock.groupMetadata(event.id)
+    groupCache.set(event.id, metadata)
+})
+```
+
+### Fix Retry System & Poll Vote Decryption
+
+Improve message sending and poll vote decryption with store:
+
+```javascript
+const sock = makeWASocket({
+    getMessage: async (key) => await getMessageFromStore(key)
+})
+```
+
+### Receive Notifications in WhatsApp App
+
+Disable online status to receive notifications:
+
+```javascript
+const sock = makeWASocket({
+    markOnlineOnConnect: false
+})
+```
+
+## Save Auth Info
+
+Avoid repeated QR code scanning by saving credentials:
+
+```javascript
+const makeWASocket = require("ye-bail").default
+const { useMultiFileAuthState } = require("ye-bail")
+
+async function connect() {
+    const { state, saveCreds } = await useMultiFileAuthState('auth_info_ye_bail')
+    const sock = makeWASocket({ auth: state })
+    sock.ev.on('creds.update', saveCreds)
+}
+
+connect()
+```
+
+> [!IMPORTANT]  
+> `useMultiFileAuthState` saves auth status in folder. For production, use SQL/No-SQL database and manage key updates carefully.
+
+## Send Messages
+
+Send all types of messages with one function.
+
+### Text Message
+
+```javascript
+await sock.sendMessage(jid, { text: 'hello world' })
+```
+
+### Quoted Message
+
+```javascript
+await sock.sendMessage(jid, { text: 'hello world' }, { quoted: message })
+```
+
+### Media Messages
+
+```javascript
+await sock.sendMessage(jid, { 
+    image: { url: './image.png' },
+    caption: 'hello world'
+})
+```
+
+For more examples and detailed documentation, see the full documentation in the repository.
+
+## License
+
+Distributed under the GPL-3.0 License. See [LICENSE](LICENSE) for more information.
+
+---
+
+<div align="center">
+  Forked and modified by yemobyte.  
+  Ye-bail - Modern WhatsApp Web API with @lid to @pn Fix
+</div>
