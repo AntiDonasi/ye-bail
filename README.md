@@ -204,6 +204,58 @@ connect()
 > [!IMPORTANT]  
 > `useMultiFileAuthState` saves auth status in folder. For production, use SQL/No-SQL database and manage key updates carefully.
 
+## Newsletter Support
+
+ye-bail supports WhatsApp Newsletter (Channel) features. Use `makeNewsletterSocket` to access newsletter functionality.
+
+### Connect with Newsletter Socket
+
+```javascript
+const { makeNewsletterSocket, useMultiFileAuthState } = require('ye-bail')
+
+async function connect() {
+    const { state, saveCreds } = await useMultiFileAuthState('auth_info_ye_bail')
+    const sock = makeNewsletterSocket({
+        auth: state,
+        printQRInTerminal: true
+    })
+    
+    sock.ev.on('creds.update', saveCreds)
+}
+
+connect()
+```
+
+### Newsletter Functions
+
+```javascript
+const newsletterJid = '0029Vb7MpjO9RZAXcgJe0n0W@newsletter'
+
+await sock.newsletterFollow(newsletterJid)
+await sock.newsletterUnfollow(newsletterJid)
+await sock.newsletterMute(newsletterJid)
+await sock.newsletterUnmute(newsletterJid)
+
+const metadata = await sock.newsletterMetadata('INVITE', '0029Vb7MpjO9RZAXcgJe0n0W')
+const allSubscribed = await sock.newsletterFetchAllSubscribe()
+
+await sock.newsletterCreate('My Newsletter', 'Description', 'ALL')
+await sock.newsletterUpdateName(newsletterJid, 'New Name')
+await sock.newsletterUpdateDescription(newsletterJid, 'New Description')
+await sock.newsletterUpdatePicture(newsletterJid, { url: './image.jpg' })
+await sock.newsletterReactionMode(newsletterJid, 'ALL')
+
+const messages = await sock.newsletterFetchMessages('jid', newsletterJid, 10, 100)
+const updates = await sock.newsletterFetchUpdates(newsletterJid, 10, 100, 0)
+
+await sock.newsletterReactMessage(newsletterJid, 'server_id', '👍')
+await sock.newsletterDelete(newsletterJid)
+```
+
+### View Channel Feature
+
+When sending video messages, a "Lihat Saluran" (View Channel) button will automatically appear. The channel ID is configured in the code.
+
 ## Send Messages
 
 Send all types of messages with one function.
@@ -219,17 +271,6 @@ await sock.sendMessage(jid, { text: 'hello world' })
 ```javascript
 await sock.sendMessage(jid, { text: 'Hello World', ai: true })
 ```
-
-<details>
-<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show AI Icon Example</summary>
-<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
-
-```javascript
-await sock.sendMessage(jid, { text: "Hello World", ai: true });
-```
-
-</div>
-</details>
 
 ### Quoted Message
 
