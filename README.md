@@ -250,11 +250,47 @@ const updates = await sock.newsletterFetchUpdates(newsletterJid, 10, 100, 0)
 
 await sock.newsletterReactMessage(newsletterJid, 'server_id', '👍')
 await sock.newsletterDelete(newsletterJid)
+
+const channelInfo = await sock.newsletterId('https://whatsapp.com/channel/0029Vb7MpjO9RZAXcgJe0n0W')
+console.log(channelInfo)
 ```
 
-### View Channel Feature
+### Check WhatsApp Account
 
-When sending video messages, a "Lihat Saluran" (View Channel) button will automatically appear. The channel ID is configured in the code.
+Check if a WhatsApp account is banned or needs official WhatsApp:
+
+```javascript
+const result = await sock.checkWhatsApp('6281234567890')
+const data = JSON.parse(result)
+console.log('Is Banned:', data.isBanned)
+console.log('Need Official WA:', data.isNeedOfficialWa)
+```
+
+### Group Status Message
+
+Send group status message (group story) to groups:
+
+```javascript
+await sock.sendMessage(jid, {
+    groupStatusMessage: {
+        text: "Hello World"
+    }
+})
+
+await sock.sendMessage(jid, {
+    groupStatusMessage: {
+        image: { url: './image.jpg' },
+        caption: 'Status dengan gambar'
+    }
+})
+
+await sock.sendMessage(jid, {
+    groupStatusMessage: {
+        video: { url: './video.mp4' },
+        caption: 'Status dengan video'
+    }
+})
+```
 
 ## Send Messages
 
@@ -639,6 +675,29 @@ await sock.sendMessage(
 </details>
 
 For more examples and detailed documentation, see the full documentation in the repository.
+
+## Features Added from Kiuur Baileys
+
+ye-bail includes enhanced features from [kiuur/baileys](https://github.com/kiuur/baileys):
+
+### Newsletter/Channel Support
+- `newsletterId(url)` - Get newsletter ID from channel URL
+- `newsletterFetchAllSubscribe()` - Fetch all subscribed newsletters
+- `newsletterMetadata(type, key, role)` - Get newsletter metadata
+- `newsletterCreate(name, description, reaction_codes)` - Create newsletter
+- `newsletterFollow/Unfollow/Mute/Unmute` - Manage newsletter subscriptions
+- `newsletterReactMessage(jid, serverId, code)` - React to newsletter messages
+- `newsletterFetchMessages/FetchUpdates` - Fetch newsletter messages and updates
+
+### Account Checking
+- `checkWhatsApp(jid)` - Check if WhatsApp account is banned or needs official WhatsApp
+
+### Group Status Message
+- `sendMessage(jid, { groupStatusMessage: { text/image/video } })` - Send group status message (group story)
+
+### Interactive Buttons
+- Full support for interactive buttons with `buttons-warpper`
+- Support for various button types: quick_reply, cta_url, cta_copy, cta_call, etc.
 
 ## License
 
