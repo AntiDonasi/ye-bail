@@ -753,40 +753,72 @@ await sock.sendMessage(
 
 Get list of subscribers for a newsletter:
 
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
 ```javascript
 const subscribers = await sock.newsletterSubscribers('120363423175289826@newsletter')
 console.log('Subscribers:', subscribers)
 ```
 
+</div>
+</details>
+
 ### Newsletter Fetch Messages
 
 Fetch messages from a newsletter:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 const messages = await sock.newsletterFetchMessages('invite', '0029Vb7MpjO9RZAXcgJe0n0W', 10, '100')
 console.log('Messages:', messages)
 ```
 
+</div>
+</details>
+
 ### Newsletter Fetch Updates
 
 Fetch updates from a newsletter:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 const updates = await sock.newsletterFetchUpdates('120363423175289826@newsletter', 10, '100', '0')
 console.log('Updates:', updates)
 ```
 
+</div>
+</details>
+
 ### Newsletter React Message
 
 React to a newsletter message:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 await sock.newsletterReactMessage('120363423175289826@newsletter', '123456789', '👍')
 ```
 
+</div>
+</details>
+
 ### Buttons Message
 
 Send a message with buttons:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 await sock.sendMessage(jid, {
@@ -812,9 +844,16 @@ await sock.sendMessage(jid, {
 })
 ```
 
+</div>
+</details>
+
 ### Buttons Message with Media
 
 Send buttons message with image header:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 await sock.sendMessage(jid, {
@@ -836,9 +875,16 @@ await sock.sendMessage(jid, {
 })
 ```
 
+</div>
+</details>
+
 ### Product Message with Buttons
 
 Send product message with interactive buttons:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 await sock.sendMessage(jid, {
@@ -871,9 +917,16 @@ await sock.sendMessage(jid, {
 })
 ```
 
+</div>
+</details>
+
 ### Request Payment Message
 
 Send a payment request:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 await sock.sendMessage(jid, {
@@ -888,9 +941,16 @@ await sock.sendMessage(jid, {
 })
 ```
 
+</div>
+</details>
+
 ### Event Message
 
 Send an event message:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
 
 ```javascript
 await sock.sendMessage(jid, {
@@ -902,6 +962,9 @@ await sock.sendMessage(jid, {
     }
 })
 ```
+
+</div>
+</details>
 
 ### Album Message
 
