@@ -323,6 +323,81 @@ await sock.sendMessage(jid, {
 })
 ```
 
+### Buttons Message
+
+Send messages with interactive buttons for quick replies:
+
+```javascript
+await sock.sendMessage(jid, {
+    buttonsMessage: {
+        contentText: 'Choose an option:',
+        footerText: 'Footer text here',
+        headerType: 1,
+        buttons: [
+            {
+                buttonId: 'id1',
+                buttonText: { displayText: 'Button 1' },
+                type: 1
+            },
+            {
+                buttonId: 'id2',
+                buttonText: { displayText: 'Button 2' },
+                type: 1
+            }
+        ]
+    }
+})
+```
+
+### Buttons Flow Message
+
+Send native flow messages with advanced button interactions:
+
+```javascript
+await sock.sendMessage(jid, {
+    interactiveMessage: {
+        body: { text: 'Message body' },
+        footer: { text: 'Footer text' },
+        nativeFlowMessage: {
+            buttons: [
+                {
+                    name: 'quick_reply',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: 'Quick Reply',
+                        id: 'reply_id'
+                    })
+                },
+                {
+                    name: 'single_select',
+                    buttonParamsJson: JSON.stringify({
+                        title: 'Select Option',
+                        sections: [
+                            {
+                                title: 'Section 1',
+                                rows: [
+                                    {
+                                        title: 'Option 1',
+                                        description: 'Description 1',
+                                        id: 'option_1'
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                }
+            ],
+            messageParamsJson: JSON.stringify({
+                limited_time_offer: {
+                    text: 'Limited offer!',
+                    url: 'https://example.com',
+                    expiration_time: Date.now() + 3600000
+                }
+            })
+        }
+    }
+})
+```
+
 ### Interactive Buttons Message
 
 <details>
