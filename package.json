@@ -1,6 +1,6 @@
 {
   "name": "ye-bail",
-  "version": "0.4.4",
+  "version": "0.4.3",
   "description": "WhatsApp Web API Library",
   "keywords": [],
   "homepage": "https://github.com/yemobyte/ye-bail",
@@ -17,9 +17,9 @@
     "requirements.js"
   ],
   "scripts": {
-    "build:all": "tsc && typedoc",
+    "build:all": "find lib -name '*.d.ts' -type f -delete && tsc && typedoc",
     "build:docs": "typedoc",
-    "build:tsc": "tsc",
+    "build:tsc": "find lib -name '*.d.ts' -type f -delete && tsc",
     "changelog:last": "conventional-changelog -p angular -r 2",
     "changelog:preview": "conventional-changelog -p angular -u",
     "changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
