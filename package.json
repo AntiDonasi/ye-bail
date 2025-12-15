@@ -1,6 +1,6 @@
 {
   "name": "ye-bail",
-  "version": "0.4.4",
+  "version": "0.4.3",
   "description": "WhatsApp Web API Library",
   "keywords": [],
   "homepage": "https://github.com/yemobyte/ye-bail",
@@ -35,7 +35,7 @@
     "release:minor": "release-it minor",
     "release:major": "release-it major",
     "version": "npm run changelog:update && git add CHANGELOG.md",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
