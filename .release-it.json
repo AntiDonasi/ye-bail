@@ -20,7 +20,7 @@
     "ignoreVersion": false
   },
   "hooks": {
-    "before:init": ["npm run lint", "npm run build:tsc"],
+    "before:init": ["npm run lint"],
     "after:bump": "npm run changelog:update"
   },
   "plugins": {
