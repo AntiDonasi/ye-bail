@@ -1,6 +1,6 @@
 {
   "name": "ye-bail",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "WhatsApp Web API Library",
   "keywords": [],
   "homepage": "https://github.com/yemobyte/ye-bail",
@@ -31,6 +31,10 @@
     "prepare": "echo 'ye-bail WhatsApp Library'",
     "preinstall": "node ./requirements.js",
     "release": "release-it",
+    "release:patch": "release-it patch",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major",
+    "version": "npm run changelog:update && git add CHANGELOG.md",
     "test": "jest"
   },
   "dependencies": {
@@ -43,8 +47,8 @@
     "gradient-string": "^2.0.2",
     "cache-manager": "^5.7.6",
     "cheerio": "^1.0.0-rc.10",
+    "libsignal":"npm:@antidonasi/libsignal-node@1.0.0",
     "libphonenumber-js": "^1.10.20",
-    "libsignal": "github:yemobyte/libsignal-node",
     "lodash": "^4.17.21",
     "music-metadata": "^7.12.3",
     "pino": "^9.6",
