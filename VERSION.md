@@ -15,7 +15,7 @@ This project follows [Semantic Versioning](https://semver.org/):
 
 The project uses [release-it](https://github.com/release-it/release-it) for automated releases.
 
-#### Patch Release (0.4.3 → 0.4.4)
+#### Patch Release (0.4.2 → 0.4.3)
 ```bash
 npm run release:patch
 # or
@@ -75,7 +75,7 @@ When you run a release command, the following happens automatically:
 - Builds TypeScript
 
 ### NPM Publish
-**Trigger:** Push git tag matching `v*` (e.g., `v0.4.4`)
+**Trigger:** Push git tag matching `v*` (e.g., `v0.4.3`)
 **Actions:**
 - Runs linter and tests
 - Builds TypeScript
