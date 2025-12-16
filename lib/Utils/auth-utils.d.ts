@@ -22,9 +22,9 @@ export function addTransactionCapability(state: any, logger: any, { maxCommitRet
     delayBetweenTriesMs: any;
 }): {
     get: (type: any, ids: any) => Promise<any>;
-    set: (data: any) => any;
+    set: (data: any) => Promise<void>;
     isInTransaction: () => boolean;
-    transaction(work: any): Promise<any>;
+    transaction(work: any, key: any): Promise<any>;
 };
 export function initAuthCreds(): {
     noiseKey: {

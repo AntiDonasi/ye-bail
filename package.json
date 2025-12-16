@@ -1,6 +1,6 @@
 {
   "name": "ye-bail",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "WhatsApp Web API Library",
   "keywords": [],
   "homepage": "https://github.com/yemobyte/ye-bail",
@@ -52,6 +52,7 @@
     "libsignal": "npm:@antidonasi/libsignal-node@1.0.0",
     "lodash": "^4.17.21",
     "music-metadata": "^7.12.3",
+    "p-queue": "^9.0.0",
     "pino": "^9.6",
     "protobufjs": "^6.11.3",
     "uuid": "^10.0.0",
