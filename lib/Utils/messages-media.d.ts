@@ -65,11 +65,14 @@ export function encryptedStream(media: any, mediaType: any, { logger, saveOrigin
     didSaveToTmpPath: boolean;
 }>;
 export function getUrlFromDirectPath(directPath: any): string;
-export function downloadContentFromMessage({ mediaKey, directPath, url }: {
-    mediaKey: any;
-    directPath: any;
-    url: any;
-}, type: any, opts?: {}): Promise<any>;
+export function downloadContentFromMessage(mediaMessage: {
+    mediaKey?: any;
+    directPath?: any;
+    url?: any;
+} | undefined, type: any, opts?: {
+    mediaKey?: any;
+    options?: any;
+}): Promise<any>;
 export function downloadEncryptedContent(downloadUrl: any, { cipherKey, iv }: {
     cipherKey: any;
     iv: any;
