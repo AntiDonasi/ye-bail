@@ -1347,6 +1347,862 @@ await sock.sendMessage(jid, {
 </div>
 </details>
 
+### Buttons Message
+
+Send interactive button messages:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    text: 'This is a button message!',
+    caption: 'Choose an option',
+    footer: 'Hello World!',
+    buttons: [
+        {
+            buttonId: 'Id1',
+            buttonText: {
+                displayText: 'Button 1'
+            }
+        },
+        {
+            buttonId: 'Id2',
+            buttonText: {
+                displayText: 'Button 2'
+            }
+        },
+        {
+            buttonId: 'Id3',
+            buttonText: {
+                displayText: 'Button 3'
+            }
+        }
+    ]
+})
+```
+
+</div>
+</details>
+
+### Buttons List Message
+
+Send button list with dropdown sections:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    text: 'Please select an option',
+    footer: 'Select from list',
+    title: 'Available Options',
+    buttonText: 'View Options',
+    sections: [
+        {
+            title: 'Section 1',
+            rows: [
+                {
+                    title: 'Option 1',
+                    description: 'Description for option 1',
+                    rowId: 'option_1'
+                },
+                {
+                    title: 'Option 2',
+                    description: 'Description for option 2',
+                    rowId: 'option_2'
+                }
+            ]
+        },
+        {
+            title: 'Section 2',
+            rows: [
+                {
+                    title: 'Option 3',
+                    description: 'Description for option 3',
+                    rowId: 'option_3'
+                }
+            ]
+        }
+    ]
+})
+```
+
+</div>
+</details>
+
+### Buttons Cards Message
+
+Send button cards with images, titles, and actions:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    text: 'Body Message',
+    title: 'Title Message',
+    subtitle: 'Subtitle Message',
+    footer: 'Footer Message',
+    cards: [
+        {
+            image: { url: 'https://example.com/image.jpg' },
+            title: 'Title Cards',
+            body: 'Body Cards',
+            footer: 'Footer Cards',
+            buttons: [
+                {
+                    name: 'quick_reply',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: 'Display Button',
+                        id: 'ID'
+                    })
+                },
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: 'Display Button',
+                        url: 'https://www.example.com'
+                    })
+                }
+            ]
+        },
+        {
+            video: { url: 'https://example.com/video.mp4' },
+            title: 'Video Card',
+            body: 'Video Body',
+            footer: 'Video Footer',
+            buttons: [
+                {
+                    name: 'quick_reply',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: 'Play',
+                        id: 'play'
+                    })
+                }
+            ]
+        }
+    ]
+})
+```
+
+</div>
+</details>
+
+### Buttons Template Message
+
+Send template buttons message:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    text: 'This is a template message!',
+    footer: 'Hello World!',
+    templateButtons: [
+        {
+            index: 1,
+            urlButton: {
+                displayText: 'Follow Me',
+                url: 'https://whatsapp.com/channel/0029Vag9VSI2ZjCocqa2lB1y'
+            }
+        },
+        {
+            index: 2,
+            callButton: {
+                displayText: 'Call Me!',
+                phoneNumber: '+628xxxxxxxxxxxx'
+            }
+        },
+        {
+            index: 3,
+            quickReplyButton: {
+                displayText: 'Quick Reply!',
+                id: 'quick_reply_id'
+            }
+        }
+    ]
+})
+```
+
+</div>
+</details>
+
+### Buttons Interactive Message
+
+Send interactive buttons with native flow:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    text: 'Select your choice',
+    title: 'Interactive Options',
+    subtitle: 'Choose wisely',
+    footer: 'Made with ye-bail',
+    interactiveButtons: [
+        {
+            name: 'single_select',
+            buttonParamsJson: JSON.stringify({
+                title: 'Select Option',
+                sections: [
+                    {
+                        title: 'Section 1',
+                        highlight_label: 'Popular',
+                        rows: [
+                            {
+                                header: 'Header 1',
+                                title: 'Title 1',
+                                description: 'Description 1',
+                                id: 'option_1'
+                            },
+                            {
+                                header: 'Header 2',
+                                title: 'Title 2',
+                                description: 'Description 2',
+                                id: 'option_2'
+                            }
+                        ]
+                    }
+                ]
+            })
+        },
+        {
+            name: 'cta_url',
+            buttonParamsJson: JSON.stringify({
+                display_text: 'Visit Website',
+                url: 'https://example.com',
+                merchant_url: 'https://example.com'
+            })
+        },
+        {
+            name: 'cta_copy',
+            buttonParamsJson: JSON.stringify({
+                display_text: 'Copy Code',
+                id: 'copy_code',
+                copy_code: 'ABC123XYZ'
+            })
+        }
+    ]
+})
+```
+
+</div>
+</details>
+
+### Buttons Interactive Message PIX
+
+Send interactive message with PIX payment option:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    text: 'Send payment via PIX',
+    interactiveButtons: [
+        {
+            name: 'payment_info',
+            buttonParamsJson: JSON.stringify({
+                payment_settings: [
+                    {
+                        type: 'pix_static_code',
+                        pix_static_code: {
+                            merchant_name: 'Your Store Name',
+                            key: 'your-email@example.com',
+                            key_type: 'EMAIL'
+                        }
+                    }
+                ]
+            })
+        }
+    ]
+})
+```
+
+</div>
+</details>
+
+### Buttons Interactive Message PAY
+
+Send interactive payment button:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    text: 'Complete your payment',
+    interactiveButtons: [
+        {
+            name: 'review_and_pay',
+            buttonParamsJson: JSON.stringify({
+                currency: 'USD',
+                total_amount: {
+                    value: '9999',
+                    offset: '100'
+                },
+                reference_id: 'ORDER123',
+                type: 'physical-goods',
+                payment_method: 'confirm',
+                payment_status: 'captured',
+                payment_timestamp: Math.floor(Date.now() / 1000),
+                order: {
+                    status: 'completed',
+                    description: 'Product Purchase',
+                    subtotal: {
+                        value: '9999',
+                        offset: '100'
+                    },
+                    order_type: 'PAYMENT_REQUEST',
+                    items: [
+                        {
+                            retailer_id: 'RETAIL001',
+                            name: 'Premium Product',
+                            amount: {
+                                value: '9999',
+                                offset: '100'
+                            }
+                        }
+                    ]
+                }
+            })
+        }
+    ]
+})
+```
+
+</div>
+</details>
+
+### Sticker Pack Message
+
+Send a complete sticker pack:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    stickerPack: {
+        name: 'My Sticker Pack',
+        publisher: 'By YourName',
+        description: 'Amazing stickers',
+        cover: Buffer.from([...]),
+        stickers: [
+            {
+                sticker: { url: 'https://example.com/sticker1.webp' },
+                emojis: ['❤', '😍'],
+                accessibilityLabel: 'Heart Sticker',
+                isLottie: false,
+                isAnimated: false
+            },
+            {
+                sticker: { url: 'https://example.com/sticker2.webp' },
+                emojis: ['😂', '🤣'],
+                accessibilityLabel: 'Laugh Sticker',
+                isLottie: false,
+                isAnimated: true
+            }
+        ]
+    }
+})
+```
+
+</div>
+</details>
+
+### Share Phone Number Message
+
+Send phone number sharing request:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    sharePhoneNumber: {}
+})
+```
+
+</div>
+</details>
+
+### Request Phone Number Message
+
+Request user's phone number:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    requestPhoneNumber: {}
+})
+```
+
+</div>
+</details>
+
+### Order Message
+
+Send order details:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    order: {
+        itemCount: 2,
+        status: 'pending',
+        surface: 'CATALOG',
+        orderTitle: 'My Order',
+        message: 'Order #12345',
+        footerNote: 'Thank you for ordering'
+    }
+})
+```
+
+</div>
+</details>
+
+### Product Message
+
+Send product information:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    product: {
+        product_image: { url: 'https://example.com/product.jpg' },
+        title: 'Product Name',
+        description: 'Product Description',
+        retailerId: 'RETAIL123',
+        url: 'https://example.com/product',
+        amount: '9999',
+        currencyCode: 'USD'
+    }
+})
+```
+
+</div>
+</details>
+
+### Payment Message
+
+Send payment request:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    payment: {
+        currencyCodeIso4217: 'USD',
+        amount1000: 99990,
+        requestFrom: 'merchant@example.com',
+        noteMessage: {
+            extendedTextMessage: {
+                text: 'Payment for Order #12345'
+            }
+        }
+    }
+})
+```
+
+</div>
+</details>
+
+### Payment Invite Message
+
+Send payment invitation:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    paymentInviteMessage: {
+        serviceType: 'UPI',
+        expiryTimestamp: Math.floor(Date.now() / 1000) + 3600
+    }
+})
+```
+
+</div>
+</details>
+
+### Admin Invite Message
+
+Send admin invitation:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    adminInviteMessage: {
+        groupJid: '120363xxx@g.us',
+        inviteCode: 'AbCdEfGhIjKlMnOpQrStUvWxYz',
+        groupName: 'My Group',
+        caption: 'You are invited to join'
+    }
+})
+```
+
+</div>
+</details>
+
+### Group Invite Message
+
+Send group invitation:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.sendMessage(jid, {
+    groupInviteMessage: {
+        groupJid: '120363xxx@g.us',
+        inviteCode: 'AbCdEfGhIjKlMnOpQrStUvWxYz',
+        groupName: 'My Group',
+        caption: 'Join our group',
+        jpegThumbnail: Buffer.from([...])
+    }
+})
+```
+
+</div>
+</details>
+
+## Privacy Settings
+
+Privacy controls allow you to manage who can see your information and interact with you on WhatsApp.
+
+### Block/Unblock User
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+await sock.updateBlockStatus(jid, 'block')
+
+await sock.updateBlockStatus(jid, 'unblock')
+```
+
+</div>
+</details>
+
+### Get Privacy Settings
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const privacySettings = await sock.fetchPrivacySettings(true)
+console.log('Privacy Settings:', privacySettings)
+```
+
+</div>
+</details>
+
+### Get BlockList
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const blocklist = await sock.fetchBlocklist()
+console.log('Blocked Users:', blocklist)
+```
+
+</div>
+</details>
+
+### Update LastSeen Privacy
+
+Control who can see when you last seen the message:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const value = 'all'
+
+await sock.updateLastSeenPrivacy(value)
+```
+
+Options: 'all', 'contacts', 'contact_blacklist', 'none'
+
+</div>
+</details>
+
+### Update Online Privacy
+
+Control who can see your online status:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const value = 'all'
+
+await sock.updateOnlinePrivacy(value)
+```
+
+Options: 'all', 'match_last_seen'
+
+</div>
+</details>
+
+### Update Profile Picture Privacy
+
+Control who can see your profile picture:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const value = 'all'
+
+await sock.updateProfilePicturePrivacy(value)
+```
+
+Options: 'all', 'contacts', 'contact_blacklist', 'none'
+
+</div>
+</details>
+
+### Update Status Privacy
+
+Control who can see your status updates:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const value = 'all'
+
+await sock.updateStatusPrivacy(value)
+```
+
+Options: 'all', 'contacts', 'contact_blacklist', 'none'
+
+</div>
+</details>
+
+### Update Read Receipts Privacy
+
+Control whether others see if you've read their messages:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const value = 'all'
+
+await sock.updateReadReceiptsPrivacy(value)
+```
+
+Options: 'all', 'none'
+
+</div>
+</details>
+
+### Update Groups Add Privacy
+
+Control who can add you to groups:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const value = 'all'
+
+await sock.updateGroupsAddPrivacy(value)
+```
+
+Options: 'all', 'contacts', 'contact_blacklist'
+
+</div>
+</details>
+
+### Update Default Disappearing Mode
+
+Set default disappearing message mode for new chats:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+Ephemeral modes (in seconds):
+- Remove: 0
+- 24 hours: 86400
+- 7 days: 604800
+- 90 days: 7776000
+
+```javascript
+const ephemeral = 86400
+
+await sock.updateDefaultDisappearingMode(ephemeral)
+```
+
+</div>
+</details>
+
+## Writing Custom Functionality
+
+ye-bail is designed with extensibility in mind. You can write custom functionality without forking.
+
+### Enabling Debug Level in Baileys Logs
+
+Enable detailed logging to see all WebSocket messages from WhatsApp:
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+const { default: makeWASocket, logger: P } = require('ye-bail')
+
+const sock = makeWASocket({
+    logger: P({ level: 'debug' })
+})
+```
+
+This enables visibility of all WebSocket frames and messages. Output includes:
+- Frame structure (tag, attrs, content)
+- Message types and data
+- System events
+- Encryption/decryption information
+
+</div>
+</details>
+
+### How WhatsApp Communicates With Us
+
+Understanding WhatsApp protocol helps you implement custom features.
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Explanation</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+WhatsApp communicates through a binary WebSocket protocol. When you enable debug logging, you'll see frames like:
+
+```javascript
+{
+    "level": 10,
+    "fromMe": false,
+    "frame": {
+        "tag": "ib",
+        "attrs": {
+            "from": "@s.whatsapp.net"
+        },
+        "content": [
+            {
+                "tag": "edge_routing",
+                "attrs": {},
+                "content": [
+                    {
+                        "tag": "routing_info",
+                        "attrs": {},
+                        "content": {
+                            "type": "Buffer",
+                            "data": [8,2,8,5]
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "msg": "communication"
+}
+```
+
+Frame Structure:
+- tag: Identifies the frame type (message, notification, ib, etc.)
+- attrs: Metadata key-value pairs (message ID, sender, timestamps, etc.)
+- content: Actual payload data (message content, user information, etc.)
+
+Common Frame Tags:
+- message: Regular messages
+- ib: Informational frames
+- ack: Acknowledgments
+- edge_routing: Router information
+- stream: Connection stream data
+- presence: User online status
+- notification: System notifications
+
+Each tag has specific content structure. By analyzing these frames, you can implement custom features like:
+- Battery status tracking
+- Custom notifications
+- Protocol-level message processing
+- System event monitoring
+
+Learn more about protocols: Libsignal Protocol and Noise Protocol
+
+</div>
+</details>
+
+### Register a Callback for WebSocket Events
+
+<details>
+<summary style="font-weight: bold; cursor: pointer; padding: 8px; border-bottom: 1px solid #eee; margin-bottom: 5px;">Show Example</summary>
+<div style="padding: 10px 15px; background: #f9f9f9; border: 1px solid #eee; border-top: none; border-radius: 0 0 5px 5px;">
+
+```javascript
+sock.ws.on('CB:edge_routing', (node) => {
+    console.log('Edge routing information:', node)
+})
+
+sock.ws.on('CB:notification', (node) => {
+    console.log('Notification received:', node)
+})
+
+sock.ws.on('CB:message', (node) => {
+    console.log('Message frame:', node)
+})
+
+sock.ws.on('CB:presence', (node) => {
+    console.log('Presence update:', node)
+})
+```
+
+Use 'CB:' prefix followed by the frame tag to register callbacks for specific message types.
+
+</div>
+</details>
+
 For more examples and detailed documentation, see the full documentation in the repository.
 
 ## License
