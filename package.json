@@ -50,7 +50,7 @@
     "fflate": "^0.8.1",
     "gradient-string": "^2.0.2",
     "libphonenumber-js": "^1.10.20",
-    "libsignal": "npm:@antidonasi/libsignal-node@1.0.0",
+    "libsignal": "github:yemobyte/libsignal-node",
     "lodash": "^4.17.21",
     "music-metadata": "^7.12.3",
     "p-queue": "^9.0.0",
