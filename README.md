@@ -430,23 +430,6 @@ await sock.sendMessage(jid, {
 })
 ```
 
-#### Live Location Message
-
-```javascript
-await sock.sendMessage(jid, {
-    liveLocationMessage: {
-        degreesLatitude: -6.2088,
-        degreesLongitude: 106.8456,
-        accuracyInMeters: 100,
-        speedInMps: 0,
-        degreesClockwiseFromMagneticNorth: 0,
-        caption: 'Current Location',
-        sequenceNumber: 0,
-        timeOffset: 0
-    }
-})
-```
-
 #### Contact Message
 
 ```javascript
@@ -603,21 +586,23 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    paymentInviteMessage: {
-        serviceType: 'PAYMENT',
-        expiryTimestamp: Date.now() + 3600000
+    paymentInvite: {
+        type: 'PAYMENT',
+        expiry: Date.now() + 3600000
     }
 })
 ```
 
-#### Admin Invite Message
+#### Newsletter Admin Invite Message
 
 ```javascript
 await sock.sendMessage(jid, {
-    adminInviteMessage: {
-        groupJid: groupId,
-        inviteCode: inviteCode,
-        inviteExpiration: Date.now() + 604800000
+    inviteAdmin: {
+        jid: '120363000000000000@newsletter',
+        inviteExpiration: Date.now() + 604800000,
+        subject: 'Newsletter Name',
+        text: 'Invite admin',
+        thumbnail: Buffer.from([])
     }
 })
 ```
@@ -626,11 +611,12 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    groupInviteMessage: {
-        groupJid: groupId,
+    groupInvite: {
+        jid: groupId,
         inviteCode: inviteCode,
         inviteExpiration: Date.now() + 604800000,
-        groupName: 'Group Name'
+        subject: 'Group Name',
+        text: 'Join this group'
     }
 })
 ```
@@ -729,10 +715,19 @@ await sock.sendMessage(jid, {
 ```javascript
 await sock.sendMessage(jid, {
     text: 'Products',
-    productListMessage: {
-        title: 'Catalog',
-        products: ['product_id_1', 'product_id_2']
-    }
+    title: 'Catalog',
+    buttonText: 'View',
+    footer: 'Choose a product',
+    businessOwnerJid: '6299999999999@s.whatsapp.net',
+    productList: [
+        {
+            title: 'Featured',
+            products: [
+                { productId: 'product_id_1' },
+                { productId: 'product_id_2' }
+            ]
+        }
+    ]
 })
 ```
 
@@ -798,28 +793,24 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    interactiveMessage: {
-        body: { text: 'Message body' },
-        footer: { text: 'Footer' },
-        nativeFlowMessage: {
-            buttons: [
-                {
-                    name: 'quick_reply',
-                    buttonParamsJson: JSON.stringify({
-                        display_text: 'Quick Reply',
-                        id: 'reply_id'
-                    })
-                },
-                {
-                    name: 'cta_url',
-                    buttonParamsJson: JSON.stringify({
-                        display_text: 'Open Link',
-                        url: 'https://example.com'
-                    })
-                }
-            ]
+    text: 'Message body',
+    footer: 'Footer',
+    interactiveButtons: [
+        {
+            name: 'quick_reply',
+            buttonParamsJson: {
+                display_text: 'Quick Reply',
+                id: 'reply_id'
+            }
+        },
+        {
+            name: 'cta_url',
+            buttonParamsJson: {
+                display_text: 'Open Link',
+                url: 'https://example.com'
+            }
         }
-    }
+    ]
 })
 ```
 
@@ -827,20 +818,16 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    interactiveMessage: {
-        body: { text: 'Payment via PIX' },
-        nativeFlowMessage: {
-            buttons: [
-                {
-                    name: 'pix',
-                    buttonParamsJson: JSON.stringify({
-                        display_text: 'Pay with PIX',
-                        pix_key: 'your_pix_key'
-                    })
-                }
-            ]
+    text: 'Payment via PIX',
+    interactiveButtons: [
+        {
+            name: 'pix',
+            buttonParamsJson: {
+                display_text: 'Pay with PIX',
+                pix_key: 'your_pix_key'
+            }
         }
-    }
+    ]
 })
 ```
 
@@ -848,21 +835,17 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    interactiveMessage: {
-        body: { text: 'Secure Payment' },
-        nativeFlowMessage: {
-            buttons: [
-                {
-                    name: 'payment',
-                    buttonParamsJson: JSON.stringify({
-                        display_text: 'Pay Now',
-                        currency: 'USD',
-                        amount: '100'
-                    })
-                }
-            ]
+    text: 'Secure Payment',
+    interactiveButtons: [
+        {
+            name: 'payment',
+            buttonParamsJson: {
+                display_text: 'Pay Now',
+                currency: 'USD',
+                amount: '100'
+            }
         }
-    }
+    ]
 })
 ```
 
@@ -973,10 +956,9 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    ptvMessage: {
-        video: { url: './video.mp4' },
-        caption: 'View Once Video'
-    }
+    ptv: true,
+    video: { url: './video.mp4' },
+    caption: 'PTV Video'
 })
 ```
 
