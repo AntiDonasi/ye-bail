@@ -380,6 +380,19 @@ const sock = makeWASocket({ auth: state })
 sock.ev.on('creds.update', saveCreds)
 ```
 
+### Cache-backed Auth State
+
+```javascript
+const { default: makeWASocket, makeCacheManagerAuthState } = require('ye-bail')
+const { caching } = require('cache-manager')
+
+const store = await caching('memory')
+const { state, saveCreds } = await makeCacheManagerAuthState(store, 'auth_info_ye_bail')
+
+const sock = makeWASocket({ auth: state, printQRInTerminal: true })
+sock.ev.on('creds.update', saveCreds)
+```
+
 ## Sending Messages
 
 ### Non-Media Messages
@@ -644,10 +657,7 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    sharePhoneNumber: {
-        displayName: 'John Doe',
-        phoneNumber: '+1234567890'
-    }
+    sharePhoneNumber: true
 })
 ```
 
@@ -655,13 +665,11 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
-    requestPhoneNumber: {
-        text: 'Please share your phone number'
-    }
+    requestPhoneNumber: true
 })
 ```
 
-#### Buttons Reply Message
+#### Buttons Message
 
 ```javascript
 await sock.sendMessage(jid, {
@@ -679,6 +687,20 @@ await sock.sendMessage(jid, {
             type: 1
         }
     ]
+})
+```
+
+#### Buttons Reply Message
+
+```javascript
+sock.ev.on('messages.upsert', ({ messages }) => {
+    const msg = messages[0]
+    const reply = msg.message?.buttonsResponseMessage
+    if (!reply) return
+    console.log({
+        id: reply.selectedButtonId,
+        text: reply.selectedDisplayText
+    })
 })
 ```
 
@@ -852,23 +874,21 @@ await sock.sendMessage(jid, {
 #### Status Mentions Message
 
 ```javascript
-await sock.sendMessage(jid, {
-    statusMentions: {
-        text: 'Check my status',
-        mentions: ['6281234567890@s.whatsapp.net']
-    }
-})
+await sock.sendStatusMentions(
+    { text: 'Check my status', font: 0, backgroundColor: '#111111' },
+    ['6281234567890@s.whatsapp.net']
+)
 ```
 
 #### Shop Message
 
 ```javascript
+const { proto } = require('ye-bail')
+
 await sock.sendMessage(jid, {
-    shop: {
-        title: 'My Shop',
-        description: 'Shop description',
-        products: []
-    }
+    text: 'Open my shop',
+    id: 'shop_1',
+    shop: proto.Message.InteractiveMessage.ShopMessage.Surface.WA
 })
 ```
 
@@ -876,9 +896,11 @@ await sock.sendMessage(jid, {
 
 ```javascript
 await sock.sendMessage(jid, {
+    text: 'See collection',
     collection: {
-        name: 'Collection Name',
-        products: []
+        bizJid: '6299999999999@s.whatsapp.net',
+        id: 'collection_1',
+        version: 1
     }
 })
 ```
@@ -1475,7 +1497,7 @@ sock.ev.on('chats.upsert', (chats) => {
 
 ## Custom Functionality
 
-### Enabling Debug Level in Baileys Logs
+### Enabling Debug Level in Logs
 
 ```javascript
 const { default: makeWASocket, logger: P } = require('ye-bail')

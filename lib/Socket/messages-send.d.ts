@@ -24,6 +24,7 @@ export function makeMessagesSocket(config: any): {
     }>;
     sendPeerDataOperationMessage: (pdoMessage: any) => Promise<any>;
     updateMediaMessage: (message: any) => Promise<any>;
+    sendStatusMentions: (content: any, jids?: any[]) => Promise<any>;
     sendMessage: (jid: any, content: any, options?: {}) => Promise<any>;
     newsletterFetchAllSubscribe: () => Promise<any>;
     subscribeNewsletterUpdates: (jid: any) => Promise<any>;

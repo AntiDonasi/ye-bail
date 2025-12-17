@@ -2,7 +2,7 @@ export const __esModule: boolean;
 export namespace Browsers {
     function ubuntu(browser: any): any[];
     function macOS(browser: any): any[];
-    function baileys(browser: any): any[];
+    function yeBail(browser: any): any[];
     function windows(browser: any): any[];
     function appropriate(browser: any): any[];
 }
@@ -49,15 +49,6 @@ export function fetchLatestYeBailVersion(options?: {}): Promise<{
     isLatest: boolean;
     error: any;
 }>;
-export function fetchLatestBaileysVersion(options?: {}): Promise<{
-    version: any[];
-    isLatest: boolean;
-    error?: undefined;
-} | {
-    version: number[];
-    isLatest: boolean;
-    error: any;
-}>;
 /**
  * A utility that fetches the latest web version of whatsapp.
  * Use to ensure your WA connection is always on the latest version
@@ -79,7 +70,7 @@ export function generateMdTagPrefix(): string;
  */
 export function getStatusFromReceiptType(type: any): any;
 /**
- * Stream errors generally provide a reason, map that to a baileys DisconnectReason
+ * Stream errors generally provide a reason, map that to a DisconnectReason
  * @param reason the string reason given, eg. "conflict"
  */
 export function getErrorCodeFromStreamError(node: any): {
